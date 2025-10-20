@@ -1,0 +1,15 @@
+[user]
+	name = Ivan Sukhankin
+	email = sukhankin.is@phystech.edu
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[init]
+	defaultBranch = main
+[alias]
+	llog = log --all --graph --stat
+[core]
+  editor = vim
+	excludesfile = ~/.gitignore

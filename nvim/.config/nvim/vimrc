@@ -1,0 +1,284 @@
+" TODO: разобрать йоу?
+" Установка Vim-Plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Посмотреть в будущем
+" TODO  https://github.com/yegappan/lsp
+
+call plug#begin('~/.vim/plugged')
+Plug 'preservim/nerdtree'
+Plug 'mbbill/undotree'
+
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'unblevable/quick-scope'
+Plug 'markonm/traces.vim'
+Plug 'RRethy/vim-illuminate'
+
+Plug 'liuchengxu/vim-which-key'
+
+" code
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
+" Plug 'cdelledonne/vim-cmake'
+Plug 'untitled-ai/jupyter_ascending.vim'
+Plug 'girishji/devdocs.vim'
+
+" theme
+Plug 'ryanoasis/vim-devicons'
+Plug 'vim-airline/vim-airline'
+" Plug 'catppuccin/vim', { 'as': 'catppuccin'  }
+Plug 'catppuccin/nvim', { 'as': 'catppuccin'  }
+
+Plug 'junegunn/goyo.vim'
+
+" git
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'rbong/vim-flog'
+
+" markdown
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install'  }
+Plug 'weirongxu/plantuml-previewer.vim'
+Plug 'tyru/open-browser.vim'
+Plug 'aklt/plantuml-syntax'
+" Plug 'OXY2DEV/markview.nvim' " nvim
+
+" tex
+Plug 'lervag/vimtex'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex'  }
+Plug 'chrisbra/csv.vim'
+
+Plug 'sirver/ultisnips'
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" Plug 'vimwiki/vimwiki'
+Plug 'kis9a/vimsidian'
+" Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'easymotion/vim-easymotion'
+"
+"postresql
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'kristijanhusak/vim-dadbod-completion'
+
+call plug#end()
+
+
+runtime ftplugin/man.vim
+
+" [plugsettings]
+let g:vimwiki_ext2syntax = {}
+let g:vimwiki_list = [{'path': '~/PhystechEdu/info/'}]
+                      " \ 'syntax': 'markdown', 'ext': 'md'}]
+
+" settings for vimtex
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+" let g:vimtex_compiler_method = 'latexrun'
+
+let g:livepreview_previewer = 'zathura' "latex-live-preview
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories=[$DOTFILES.'/old_vim/UltiSnips']
+
+" Initialize configuration dictionary
+let g:fzf_vim = {}
+let g:fzf_vim.command_prefix = 'Fzf'
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_vim.commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" undotree
+let g:undotree_SetFocusWhenToggle = 1
+
+" markdown preview
+let g:mkdp_auto_close = 0
+let g:mkdp_combine_preview = 1
+nmap <leader>mp <Plug>MarkdownPreviewToggle
+" mac os specific
+function OpenMarkdownPreview (url)
+  " execute "silent ! open -a Firefox -n --args --new-window " . a:url
+  execute "! open -a Firefox -g " . a:url
+  " execute "silent ! open -a Firefox -g " . a:url
+  " execute "redraw!"
+endfunction
+let g:mkdp_browserfunc = 'OpenMarkdownPreview'
+
+" [basevimsettings]
+
+" Disable compatibility with vi which can cause unexpected issues.
+set nocompatible
+set nobackup
+set nowritebackup
+set noswapfile
+
+set encoding=UTF-8
+" Enable type file detection. Vim will be able to try to detect the type of file in use.
+filetype on
+" Enable plugins and load plugin for the detected file type.
+filetype plugin on
+" Load an indent file for the detected file type.
+filetype indent on
+
+set history=100
+set ttyfast
+
+set backspace=indent,start,eol " indent, end of line, start
+
+
+" set path+=** too slow
+set path+=$DOTFILES
+" Enable auto completion menu after pressing TAB.
+set wildmenu
+" Make wildmenu behave like similar to Bash completion.
+set wildmode=list:longest
+" There are certain files that we would never want to edit with Vim.
+" Wildmenu will ignore files with these extensions.
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+set wildignore+=**/bin/**,**/build/**
+
+" search settings
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+" setlocal spell
+set spelllang=en,ru
+
+" [commands]
+
+function! s:DiffWithSaved()
+  let filetype=&ft
+  diffthis
+  vnew | r # | normal! 1Gdd
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSaved call s:DiffWithSaved()
+
+" [appearance]
+
+syntax on
+set icon
+
+" folding settings
+
+set foldlevelstart=99
+set foldmethod=syntax
+" Настройка внешности сверток для foldmethod=syntax
+set foldtext=MyFoldText()
+
+function! MyFoldText()
+    let line = getline(v:foldstart)
+    let fold_size = v:foldend - v:foldstart + 1
+    return line . ' ... (' . fold_size . ' lines)'
+endfunction
+
+
+set showcmd
+
+let g:airline#extensions#tabline#enabled = 1
+
+" match IncSearch '\s\+$'
+
+" [theme]
+
+" Настройка цвета текста и фона для свернутых областей (папок)
+highlight Folded ctermfg=White ctermbg=DarkGrey
+
+colorscheme catppuccin-mocha " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha"
+let g:airline_theme='catppuccin'
+
+autocmd BufWritePost * GitGutter
+highlight GitGutterAdd guifg=#00dd00 ctermfg=2
+highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+highlight GitGutterDelete guifg=#ff2222 ctermfg=1
+
+" [keymapping]
+
+inoremap jj <ESC>
+inoremap оо <ESC>
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+" move among buffers with CTRL
+map <C-J> :bnext<CR>
+map <C-K> :bprev<CR>
+nnoremap <leader>td :vimgrep /todo/ ** <Bar> copen <CR>
+map <Leader> <Plug>(easymotion-prefix)
+nnoremap <leader>n :NERDTreeToggle<CR>
+nmap <leader>c :Commentary<CR>
+vmap <leader>c :Commentary<CR>
+
+function! InsertTabWrapper()
+  if pumvisible()
+    return "\<c-n>"
+  endif
+  let col = col('.') - 1
+  " if !col || getline('.')[col - 1] !~ '\k'
+  if !col || getline('.')[col - 1] =~ '\t'
+    return "\<tab>"
+  else
+    return "\<c-x>\<c-o>"
+  endif
+endfunction
+
+function! s:on_lsp_buffer_enabled() abort
+    inoremap <expr><tab> InsertTabWrapper()
+    " imap <expr><tab> InsertTabWrapper()
+    inoremap <expr><s-tab> pumvisible()?"\<c-p>":"\<c-d>"
+    " setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    nmap <buffer> gi <plug>(lsp-definition)
+    nmap <buffer> gd <plug>(lsp-declaration)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gl <plug>(lsp-document-diagnostics)
+    nmap <buffer> ga <plug>(lsp-code-action)
+    nmap <buffer> <leader>gr <plug>(lsp-rename)
+    nmap <buffer> gh <plug>(lsp-hover)
+    nmap <buffer> <leader>ws <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gs :LspDocumentSwitchSourceHeader<CR>
+endfunction
+augroup lsp_install
+    au!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+autocmd FileType sql setlocal omnifunc=vim_dadbod_completion#omni
+nnoremap <leader>rn :set relativenumber!<CR>
+nnoremap <Leader>sc :source ~/.vimrc<CR>
+let g:UltiSnipsExpandTrigger = '<C-\>'
+let g:UltiSnipsListSnippets = '<leader><tab>'
+let g:UltiSnipsJumpForwardTrigger = '<C-\>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+nmap <leader>p :FzfFiles<CR>
+nnoremap <silent> <leader> :WhichKey '<leader>'<CR>
+
+imap <script><silent><nowait><expr> <leader>cm codeium#Accept()
+nnoremap <leader>u :UndotreeToggle<CR>
+
+nmap <leader>sl :setlocal spell! <Bar> :if &textwidth == 0 \| set textwidth=80 \| else \| set textwidth=0 \| endif<CR>
+
+" inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+nmap <space><space>x <Plug>JupyterExecute
+nmap <space><space>X <Plug>JupyterExecuteAll
+nmap <space><space>r <Plug>JupyterRestart
+
+let g:jupyter_ascending_python_executable = "python3"
+
+let g:db_ui_show_nulls = 1

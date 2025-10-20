@@ -1,0 +1,47 @@
+# snippet struct "struct" bA
+# struct $1 {
+#   $2
+# };$0
+# endsnippet
+
+snippet func "func" bA
+${VISUAL} $2($3)`!p
+if not t[4]:
+	snip.rv = ';'
+elif t[4][0] != ';':
+    snip.rv = ' {\n  '
+else:
+    snip.rv = ''
+`$4`!p
+if t[4] and t[4][0] not in [';']:
+    snip.rv = '\n}'
+else:
+    snip.rv = ''
+`
+$0
+endsnippet
+
+#define ${1/./\u$0/g}
+snippet ifndef
+#ifndef ${1:`!p snip.rv = snip.basename.upper()`_H}
+#define $1
+
+$0
+
+#endif // $1
+endsnippet
+
+snippet once "Include header once only guard" b
+#ifndef ${1:`!p
+if not snip.c:
+	import string
+	name = re.sub(r'[^A-Za-z0-9]+','_', snip.fn).upper()
+	snip.rv = name
+else:
+	snip.rv = snip.c`}
+#define $1
+
+${0}
+
+#endif // $1
+endsnippet

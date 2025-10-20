@@ -1,0 +1,90 @@
+# sets user-defined palette
+palette = "catppuccin_mocha"
+
+format = """
+$username\
+$directory\
+$git_branch\
+$git_commit\
+$git_status\
+$python\
+$character
+"""
+
+right_format = """
+$cmd_duration\
+$username
+$hostname\
+"""
+
+[username]
+style_user = "mauve bold bg:surface1"
+style_root = "red bold bg:base italic"
+format = "[ $user ]($style)"
+# show_always = true
+
+[character]
+success_symbol = "[ I❯](green)"
+error_symbol = "[ ❯](red)"
+vimcmd_symbol = "[ N❮](green)"
+
+[directory]
+truncation_length = 3
+# Catppuccin 'lavender'
+style = "bold base bg:peach"
+format = "[ $path ]($style)"
+
+[git_branch]
+symbol = ""
+style = "bold base bg:blue"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "bold base bg:red"
+format = '[$all_status$ahead_behind]($style)'
+
+[git_commit]
+commit_hash_length = 6
+style = "bold base bg:blue"
+format = '[\[$hash\] ]($style)'
+
+# ~/.config/starship.toml
+
+[python]
+pyenv_version_name = true
+format = '[(${version} )( \($virtualenv\))]($style)'
+# disabled = true
+
+[hostname]
+ssh_symbol = " SSH ↹  "
+style = 'bold green bg:base'
+format = '[$ssh_symbol$hostname]($style) '
+
+# palette tables should be last in the config ⚓️
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
