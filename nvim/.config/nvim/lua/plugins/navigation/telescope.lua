@@ -1,6 +1,5 @@
-local builtin = require('telescope.builtin') -- TODO: lazy load (function in keys for example)
-
 -- TODO: добить найстроку telescope
+-- TODO: мб скачать телескоп ui
 return {
   'nvim-telescope/telescope.nvim', tag = '0.1.8',
   -- or                              , branch = '0.1.x',
@@ -22,10 +21,10 @@ return {
     },
   },
   keys = {
-    {'<leader>ff', builtin.find_files, desc = 'Telescope find files' },
-    {'<leader>fg', builtin.live_grep, desc = 'Telescope live grep' },
-    {'<leader>fb', builtin.buffers, desc = 'Telescope buffers' },
-    {'<leader>fh', builtin.help_tags, desc = 'Telescope help tags' },
-    {'<leader>ft', builtin.builtin, desc = 'Telescope builtins' },
+    {'<leader>ff', function() require('telescope.builtin').find_files() end, desc = 'Telescope find files' },
+    {'<leader>fg', function() require('telescope.builtin').live_grep() end, desc = 'Telescope live grep' },
+    {'<leader>fb', function() require('telescope.builtin').buffers() end, desc = 'Telescope buffers' },
+    {'<leader>fh', function() require('telescope.builtin').help_tags() end, desc = 'Telescope help tags' },
+    {'<leader>ft', function() require('telescope.builtin').builtin() end, desc = 'Telescope builtins' },
   },
 }
