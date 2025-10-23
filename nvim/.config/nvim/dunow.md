@@ -15,6 +15,8 @@ nnn
 
 https://github.com/gbprod/substitute.nvim
 
+tabout
+
 swap
 undo
 backup

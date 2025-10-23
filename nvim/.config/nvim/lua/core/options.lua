@@ -29,7 +29,7 @@ opt.expandtab=true
 opt.smartindent=true
 
 opt.list = true
-opt.listchars = { tab = "»·", trail = "-"}
+opt.listchars = { tab = "»·", trail = "•"}
 -- opt.listchars:append { space = "·" }
 -- opt.listchars:append { eol = "\\u21b5" }
 
