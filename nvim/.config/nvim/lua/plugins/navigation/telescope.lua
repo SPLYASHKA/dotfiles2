@@ -17,7 +17,13 @@ return {
           -- e.g. git_{create, delete, ...}_branch for the git_branches picker
           ["<C-h>"] = "which_key"
         }
-      }
+      },
+    },
+    pickers = {
+      find_files = {
+        -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+        find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+      },
     },
   },
   keys = {
@@ -26,5 +32,12 @@ return {
     {'<leader>fb', function() require('telescope.builtin').buffers() end, desc = 'Telescope buffers' },
     {'<leader>fh', function() require('telescope.builtin').help_tags() end, desc = 'Telescope help tags' },
     {'<leader>ft', function() require('telescope.builtin').builtin() end, desc = 'Telescope builtins' },
+    {'<leader>fp', function() require('plugins._config.telescope-config').project_files() end, desc = 'Telescope find project files' },
+    {'<leader>fn', function()
+      require('telescope.builtin').find_files({
+        prompt_title = "Nvim config fles",
+        cwd = vim.fn.stdpath("config"),
+      })
+    end, desc = 'Telescope nvim config files' },
   },
 }

@@ -5,10 +5,16 @@ return {
     vim.diagnostic.config({
       virtual_text = true,
       -- virtual_lines = true,
+      float = { border = 'rounded' },
       signs = true,      -- отображение в gutter (столбце слева)
       underline = true,  -- подчёркивание проблем
       update_in_insert = false,  -- не показывать при наборе
     })
-    vim.lsp.enable("clangd")
+
+    local lsp_enabled = {
+      "clangd",
+      "lua_ls",
+    }
+    vim.lsp.enable(lsp_enabled)
   end,
 }

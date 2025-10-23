@@ -1,3 +1,4 @@
+instant.nvim
 Plug 'rmagatti/goto-preview'
 harpoon может быть
 mini
@@ -13,6 +14,11 @@ spellcheking
 nnn
 
 https://github.com/gbprod/substitute.nvim
+
+swap
+undo
+backup
+sessions
 
 # floating terminal
 https://www.reddit.com/r/neovim/comments/1f6l9ii/floating_terminal_in_neovim_and_its_way_better/
