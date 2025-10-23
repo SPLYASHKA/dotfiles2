@@ -8,6 +8,12 @@ live-preview in browser, work for vim
 - [Markview.nvim](https://github.com/OXY2DEV/markview.nvim)
 preview in nvim, only for neovim
 
+https://linkarzu.com/
+
+marksman
+markdown-oxide
+
+<!-- TODO: сделать чтобы работало дополнение для списков -->
 
 ### Okular
 

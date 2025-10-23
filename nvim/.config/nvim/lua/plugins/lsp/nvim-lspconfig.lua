@@ -14,6 +14,7 @@ return {
     local lsp_enabled = {
       "clangd",
       "lua_ls",
+      "marksman",
     }
     vim.lsp.enable(lsp_enabled)
   end,
