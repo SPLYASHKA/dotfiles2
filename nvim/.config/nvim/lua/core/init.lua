@@ -3,5 +3,6 @@ require("core.options")
 -- loading lazy.nvim so that mappings are correct.
 require("core.keymaps")
 require("core.autocmd")
+require("core.spellcheck")
 
 require("core.lazy")

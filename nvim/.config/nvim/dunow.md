@@ -25,6 +25,7 @@ sessions
 # floating terminal
 https://www.reddit.com/r/neovim/comments/1f6l9ii/floating_terminal_in_neovim_and_its_way_better/
 https://www.reddit.com/r/neovim/comments/nkm1h7/how_to_float_window/
+toggle term
 Add bspc rule -a Zathura state=tiled to your bspwmrc
 # need to check
 - то репо  alexis
