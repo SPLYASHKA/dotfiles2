@@ -11,3 +11,7 @@ conform
 https://github.com/antosha417/nvim-lsp-file-operations
 
 можеть быть lazydev - конфигурация luaLS для конфигурирования nvim
+
+lspsaga - разобраться что это
+
+https://github.com/nvim-treesitter/nvim-treesitter-textobjects

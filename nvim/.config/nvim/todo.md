@@ -1,9 +1,11 @@
 - [ ] DiffOrig
 - [ ] packadd nohlsearch
 - [ ] добавить auto pairs
-- [ ] добавить quick scope
+- [x] добавить quick scope
 
 - [ ] markdown
+
+- [ ] jupyter
 
 - [ ] разобраться с blink-cmp
 - [ ] разобраться со сниппетами

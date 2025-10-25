@@ -1,4 +1,5 @@
 -- TODO: добить комплиты
+-- TODO: может быть вместо blink использовать omnifunc и самому пописать кода
 return {
   'saghen/blink.cmp',
   enabled = true,
