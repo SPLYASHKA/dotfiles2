@@ -1,8 +1,10 @@
 - [ ] DiffOrig
 - [ ] packadd nohlsearch
 - [ ] добавить auto pairs
+- [ ] добавить sandwich или подобное что-то
 - [x] добавить quick scope
 
+- [ ] ai
 - [ ] markdown
 
 - [ ] jupyter

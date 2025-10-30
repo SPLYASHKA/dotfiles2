@@ -4,4 +4,5 @@ return {
   { import = "plugins.navigation" },
   { import = "plugins.lsp" },
   { import = "plugins.brackets" },
+  { import = "plugins.markdown" },
 }
