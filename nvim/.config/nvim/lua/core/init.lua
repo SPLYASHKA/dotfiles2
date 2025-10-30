@@ -4,5 +4,6 @@ require("core.options")
 require("core.keymaps")
 require("core.autocmd")
 require("core.spellcheck")
+require("core.pack")
 
 require("core.lazy")

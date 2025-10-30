@@ -22,3 +22,10 @@ keymap.set({ 'n' }, '<A-h>', '<C-w>h')
 keymap.set({ 'n' }, '<A-j>', '<C-w>j')
 keymap.set({ 'n' }, '<A-k>', '<C-w>k')
 keymap.set({ 'n' }, '<A-l>', '<C-w>l')
+
+keymap.set('n', '<leader>rn',
+  function()
+  vim.opt.relativenumber = not vim.opt.relativenumber:get()
+  end,
+  { desc = "Toggle 'relativenumber'" }
+)
