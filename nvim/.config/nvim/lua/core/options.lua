@@ -4,6 +4,7 @@
 -- To see documentation for an option, you can use `:h 'optionname'`, for example `:h 'number'`
 -- (Note the single quotes)
 local opt = vim.opt
+local wo = vim.wo
 
 -- Print the line number in front of each line
 opt.number = true
@@ -48,3 +49,21 @@ opt.wildmode = "list:longest"
 -- Wildmenu will ignore files with these extensions.
 opt.wildignore = {"*.docx","*.jpg","*.png","*.gif","*.pdf","*.pyc","*.exe","*.flv","*.img","*.xlsx"}
 opt.wildignore:append  { "**/bin/**,**/build/**" }
+
+-- Folding
+opt.foldlevelstart = 99
+-- Default to treesitter folding
+wo.foldmethod = 'expr'
+wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+
+opt.foldtext = "MyFoldText()"
+-- vim.o.foldtext = ""
+-- vim.opt.fillchars:append({fold = " "})
+
+vim.cmd([[
+function! MyFoldText()
+    let line = getline(v:foldstart)
+    let fold_size = v:foldend - v:foldstart
+    return line . ' ↵ (' . fold_size . ' lines)'
+endfunction
+]])
