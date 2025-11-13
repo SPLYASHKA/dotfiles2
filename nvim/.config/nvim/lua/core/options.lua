@@ -38,3 +38,13 @@ opt.listchars = { tab = "»·", trail = "•"}
 -- opt.formatoptions:remove {'o'}
 -- opt.formatoptions:remove {'l'}
 opt.textwidth = 80
+
+-- wildmenu settings
+-- Enable auto completion menu after pressing TAB.
+opt.wildmenu = true
+-- Make wildmenu behave like similar to Bash completion.
+opt.wildmode = "list:longest"
+-- There are certain files that we would never want to edit with Vim.
+-- Wildmenu will ignore files with these extensions.
+opt.wildignore = {"*.docx","*.jpg","*.png","*.gif","*.pdf","*.pyc","*.exe","*.flv","*.img","*.xlsx"}
+opt.wildignore:append  { "**/bin/**,**/build/**" }

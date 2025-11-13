@@ -1,4 +1,5 @@
 - [ ] DiffOrig
+- [ ] linux man pages
 - [x] packadd nohlsearch
 - [x] добавить auto pairs
 - [ ] настроить auto pairs
@@ -7,6 +8,7 @@
 
 - [ ] ai
 - [ ] [[markdown]]
+- [ ] folding
 
 - [ ] jupyter
 

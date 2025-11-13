@@ -1,40 +1,18 @@
 " TODO: разобрать йоу?
-" Установка Vim-Plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-" Посмотреть в будущем
-" TODO  https://github.com/yegappan/lsp
-
 call plug#begin('~/.vim/plugged')
 Plug 'preservim/nerdtree'
 Plug 'mbbill/undotree'
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'unblevable/quick-scope'
-Plug 'markonm/traces.vim'
-Plug 'RRethy/vim-illuminate'
-
-Plug 'liuchengxu/vim-which-key'
 
 " code
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 " Plug 'cdelledonne/vim-cmake'
 Plug 'untitled-ai/jupyter_ascending.vim'
 Plug 'girishji/devdocs.vim'
 
 " theme
-Plug 'ryanoasis/vim-devicons'
-Plug 'vim-airline/vim-airline'
-" Plug 'catppuccin/vim', { 'as': 'catppuccin'  }
-Plug 'catppuccin/nvim', { 'as': 'catppuccin'  }
-
 Plug 'junegunn/goyo.vim'
 
 " git
@@ -59,11 +37,7 @@ Plug 'sirver/ultisnips'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" Plug 'vimwiki/vimwiki'
 Plug 'kis9a/vimsidian'
-" Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'vim-airline/vim-airline-themes'
-" Plug 'easymotion/vim-easymotion'
 "
 "postresql
 Plug 'tpope/vim-dadbod'
@@ -76,10 +50,6 @@ call plug#end()
 runtime ftplugin/man.vim
 
 " [plugsettings]
-let g:vimwiki_ext2syntax = {}
-let g:vimwiki_list = [{'path': '~/PhystechEdu/info/'}]
-                      " \ 'syntax': 'markdown', 'ext': 'md'}]
-
 " settings for vimtex
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
@@ -140,23 +110,12 @@ set backspace=indent,start,eol " indent, end of line, start
 
 " set path+=** too slow
 set path+=$DOTFILES
-" Enable auto completion menu after pressing TAB.
-set wildmenu
-" Make wildmenu behave like similar to Bash completion.
-set wildmode=list:longest
-" There are certain files that we would never want to edit with Vim.
-" Wildmenu will ignore files with these extensions.
-set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
-set wildignore+=**/bin/**,**/build/**
 
 " search settings
 set incsearch
 set hlsearch
 set ignorecase
 set smartcase
-
-" setlocal spell
-set spelllang=en,ru
 
 " [commands]
 
@@ -261,24 +220,7 @@ let g:UltiSnipsExpandTrigger = '<C-\>'
 let g:UltiSnipsListSnippets = '<leader><tab>'
 let g:UltiSnipsJumpForwardTrigger = '<C-\>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-" Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
 
-nmap <leader>p :FzfFiles<CR>
-nnoremap <silent> <leader> :WhichKey '<leader>'<CR>
-
-imap <script><silent><nowait><expr> <leader>cm codeium#Accept()
 nnoremap <leader>u :UndotreeToggle<CR>
-
-nmap <leader>sl :setlocal spell! <Bar> :if &textwidth == 0 \| set textwidth=80 \| else \| set textwidth=0 \| endif<CR>
-
-" inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
-nmap <space><space>x <Plug>JupyterExecute
-nmap <space><space>X <Plug>JupyterExecuteAll
-nmap <space><space>r <Plug>JupyterRestart
-
-let g:jupyter_ascending_python_executable = "python3"
 
 let g:db_ui_show_nulls = 1
