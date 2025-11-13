@@ -64,6 +64,10 @@ end
 
 ---@type vim.lsp.Config
 return {
+  cmd = {
+    "clangd",
+    "--header-insertion=never",
+  },
   on_attach = function(client, bufnr)
     vim.api.nvim_buf_create_user_command(bufnr, 'LspClangdSwitchSourceHeader', function()
       switch_source_header(bufnr, client)
