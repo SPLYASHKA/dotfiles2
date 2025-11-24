@@ -5,4 +5,5 @@ return {
   { import = "plugins.lsp" },
   { import = "plugins.brackets" },
   { import = "plugins.markdown" },
+  { import = "plugins.tex" },
 }
