@@ -7,7 +7,7 @@ vim.g.maplocalleader = "\\"
 -- [[ Set up keymaps ]] See `:h vim.keymap.set()`, `:h mapping`, `:h keycodes`
 local keymap = vim.keymap
 
-keymap.set('i', 'jj', '<ESC>', { desc = "Exit insert mode" })
+-- keymap.set('i', 'jj', '<ESC>', { desc = "Exit insert mode" })
 
 
 -- Use <Esc> to exit terminal mode
@@ -25,7 +25,7 @@ keymap.set({ 'n' }, '<A-l>', '<C-w>l')
 
 keymap.set('n', '<leader>rn',
   function()
-  vim.opt.relativenumber = not vim.opt.relativenumber:get()
+    vim.opt.relativenumber = not vim.opt.relativenumber:get()
   end,
   { desc = "Toggle 'relativenumber'" }
 )

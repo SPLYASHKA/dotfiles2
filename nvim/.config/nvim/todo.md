@@ -1,19 +1,24 @@
-- [ ] DiffOrig
-- [ ] linux man pages
-- [x] packadd nohlsearch
-- [x] добавить auto pairs
-- [ ] настроить auto pairs
-- [ ] добавить sandwich или подобное что-то
-- [x] добавить quick scope
-
+# NVIM TODO
+## In progress
+- [ ] конспекты в nvim
+    - [ ] разобраться со сниппетами
+    - [ ] изображения, рисунки
+    - [ ] latex
+        - [ ] texspresso
 - [ ] ai
-- [ ] [[markdown]]
-- [ ] folding
+- [ ] добавить sandwich или подобное что-то
 
 - [ ] jupyter
 
+
+- [ ] [[markdown]]
+    - [ ] сделать toggle todo
+    - [ ] поиск по все markdown todo в telescope
+- [ ] настроить auto pairs
+- [ ] DiffOrig (переписать на lua)
+- [ ] linux man pages
+
 - [ ] разобраться с blink-cmp
-- [ ] разобраться со сниппетами
 
 - [ ] lsp
     - [ ] mason
@@ -23,7 +28,13 @@
 
 - [ ] разобрать vimrc
 
-- [ ] latex
 - [ ] obsidian
 
 - [ ] прочитать мануалы vim/nvim
+
+## Done
+
+- [x] folding
+- [x] packadd nohlsearch
+- [x] добавить auto pairs
+- [x] добавить quick scope

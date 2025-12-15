@@ -58,7 +58,7 @@ wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 opt.foldtext = "MyFoldText()"
 -- vim.o.foldtext = ""
--- vim.opt.fillchars:append({fold = " "})
+vim.opt.fillchars:append({fold = " "})
 
 vim.cmd([[
 function! MyFoldText()
@@ -67,3 +67,6 @@ function! MyFoldText()
     return line . ' ↵ (' . fold_size . ' lines)'
 endfunction
 ]])
+
+-- float window
+opt.winborder = "single"
