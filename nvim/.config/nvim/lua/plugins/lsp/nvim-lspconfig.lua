@@ -5,11 +5,9 @@ return {
   config = function()
     vim.diagnostic.config({
       virtual_text = true,
-      -- virtual_lines = true,
-      float = { border = 'single' },
-      signs = true,      -- отображение в gutter (столбце слева)
-      underline = true,  -- подчёркивание проблем
-      update_in_insert = false,  -- не показывать при наборе
+      signs = true,             -- отображение в gutter (столбце слева)
+      underline = true,         -- подчёркивание проблем
+      update_in_insert = false, -- не показывать при наборе
     })
 
     local lsp_enabled = {
@@ -17,6 +15,9 @@ return {
       "lua_ls",
       "marksman",
       "asm_lsp",
+      "copilot",
+      "pyright",
+      "texlab",
     }
     vim.lsp.enable(lsp_enabled)
   end,

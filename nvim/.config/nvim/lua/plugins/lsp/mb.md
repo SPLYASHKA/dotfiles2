@@ -4,6 +4,7 @@ mason lsp-config
 https://github.com/rmagatti/goto-preview
 
 <!-- TODO: поставить линтер, формат -->
+null-ls
 nvim-lint
 mason-tool-instaler
 conform

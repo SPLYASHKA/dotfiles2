@@ -46,9 +46,11 @@ return {
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
+    },
 
     snippets = {
       preset = "luasnip",
+      score_offset = 0,
     },
 
     -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
