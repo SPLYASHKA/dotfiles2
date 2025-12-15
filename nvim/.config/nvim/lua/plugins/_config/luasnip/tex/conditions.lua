@@ -1,3 +1,4 @@
+local ts = require("plugins._config.luasnip.tex.cond")
 --[[
 Optimized Mathematical Context Detection Module for LuaSnip's autosnippets.
 
@@ -12,7 +13,7 @@ Last updated: 2025-05-25
 
 -- Module table
 local M = {}
-local buffer_id = vim.api.nvim_get_current_buf() -- Current buffer ID
+-- local buffer_id = vim.api.nvim_get_current_buf() -- Current buffer ID
 
 ------------------------------------------------------------------------------
 -- UNIFIED CACHE MECHANISM (Configurable)
@@ -288,6 +289,7 @@ end
 
 local get_math_query = create_math_query()
 
+-- BUG: this func blowup treesitter and luasnip's ft_func
 function M.is_mathzone()
   local current_row, current_col = get_cursor_pos()
   local cache_key = string.format("%d:%d", current_row, current_col)
@@ -299,6 +301,7 @@ function M.is_mathzone()
   end
 
   -- Use incremental parser; ensure you run `:TSInstall latex`
+  -- BUG: this line blowup treesitter and luasnip's ft_func
   local parser = get_incremental_parser(0, "latex")
   if not parser then
     return M.is_mathzone_fallback()
@@ -383,6 +386,7 @@ local function safe_regex_matcher(line)
 end
 
 function M.is_mathzone_fallback()
+  local buffer_id = vim.api.nvim_get_current_buf() -- Current buffer ID
   local current_row, current_col = get_cursor_pos()
   local cache_key = string.format("fallback:%d:%d", current_row, current_col)
 
@@ -420,6 +424,7 @@ end
 -- ENVIRONMENT DETECTION
 ------------------------------------------------------------------------------
 local function in_environment(env_name)
+  local buffer_id = vim.api.nvim_get_current_buf() -- Current buffer ID
   local current_row = get_cursor_pos()
 
   -- Check cache first if caching is enabled
@@ -487,8 +492,54 @@ end
 -- SPECIFIC ENVIRONMENT CHECKS
 ------------------------------------------------------------------------------
 M.in_text = function()
-  return in_environment("text") and not M.math_mode()
+  return not M.math_mode()
 end
+
+M.in_matrix = function()
+  local math_ranges = {
+    "pmatrix",
+    "bmatrix",
+    "Bmatrix",
+    "vmatrix",
+    "Vmatrix",
+    "matrix",
+  }
+
+  for _, env in ipairs(math_ranges) do
+    if in_environment(env) then
+      return true
+    end
+  end
+
+  return false
+end
+
+M.in_multiline = function()
+  -- local math_ranges = {
+  --   "pmatrix",
+  --   "bmatrix",
+  --   "Bmatrix",
+  --   "vmatrix",
+  --   "Vmatrix",
+  --   "matrix",
+  -- }
+
+  local math_ranges = {
+    "gather",
+    "gathered",
+    "align",
+    "aligned",
+  }
+
+  for _, env in ipairs(math_ranges) do
+    if in_environment(env) then
+      return true
+    end
+  end
+
+  return false
+end
+
 
 M.in_tikz = function()
   return in_environment("tikzpicture")
@@ -524,6 +575,7 @@ local function is_math_range()
 end
 
 function M.is_in_sile_display_math()
+  local buffer_id = vim.api.nvim_get_current_buf() -- Current buffer ID
   local current_row, current_col = get_cursor_pos()
   local cache_key = string.format("%d:%d", current_row, current_col)
 
@@ -576,6 +628,7 @@ end
 -- TEXT COMMAND DETECTION
 ------------------------------------------------------------------------------
 local function is_cursor_in_text_command()
+  local buffer_id = vim.api.nvim_get_current_buf() -- Current buffer ID
   local current_row, current_col = get_cursor_pos()
   local cache_key = string.format("%d:%d", current_row, current_col)
 
@@ -601,13 +654,59 @@ end
 ------------------------------------------------------------------------------
 function M.math_mode()
   return (M.config.use_cache and M.cache:get("mathzone", string.format("%d:%d", get_cursor_pos())) == true)
-      or (M.is_mathzone() or M.is_mathzone_fallback() or is_math_range() or M.is_in_sile_display_math())
+      or (ts.in_mathzone() or M.is_mathzone_fallback() or is_math_range() or M.is_in_sile_display_math())
       and not is_cursor_in_text_command()
 end
 
 ------------------------------------------------------------------------------
 -- NEOVIM INTEGRATION
 ------------------------------------------------------------------------------
+vim.api.nvim_create_user_command("MathZoneDetectedBy", function()
+  local cursor_row, cursor_col = get_cursor_pos()
+  local results = {}
+
+  -- 0. Real Tree sitter mathzone
+  if ts.in_mathzone() then
+    table.insert(results, "Real tree-sitter mathzone")
+  end
+
+  -- 1. Tree-sitter mathzone
+  -- if M.is_mathzone() then
+  --   table.insert(results, "Tree-sitter mathzone")
+  -- end
+
+  -- 2. Regex fallback
+  if M.is_mathzone_fallback() then
+    table.insert(results, "Regex fallback")
+  end
+
+  -- 3. Environment check
+  if is_math_range() then
+    table.insert(results, "Math environment")
+  end
+
+  -- 4. SILE display math
+  if M.is_in_sile_display_math() then
+    table.insert(results, "SILE display math")
+  end
+
+  -- 5. Text command override
+  if is_cursor_in_text_command() then
+    table.insert(results, "Inside \\text{}")
+  end
+
+  -- Output
+  print(string.format("Cursor at %d:%d", cursor_row, cursor_col))
+  if #results == 0 then
+    print("Not in math mode")
+  else
+    print("Math mode detected by:")
+    for _, method in ipairs(results) do
+      print("  - " .. method)
+    end
+  end
+end, {})
+
 vim.api.nvim_create_user_command("CheckCursorMathZone", function()
   if M.math_mode() then
     print("Cursor is in a math mode")
@@ -617,6 +716,7 @@ vim.api.nvim_create_user_command("CheckCursorMathZone", function()
 end, {})
 
 -- Initialize with default settings
+local buffer_id = vim.api.nvim_get_current_buf() -- Current buffer ID
 M.setup({
   cache_size = 500,
   use_cache = true, -- Enable or disable caching
@@ -633,6 +733,7 @@ M.setup({
 })
 
 vim.api.nvim_create_user_command("DebugSileMath", function()
+  local buffer_id = vim.api.nvim_get_current_buf() -- Current buffer ID
   local current_row, current_col = get_cursor_pos()
   local line = vim.api.nvim_buf_get_lines(buffer_id, current_row - 1, current_row, false)[1] or ""
 
@@ -642,9 +743,6 @@ vim.api.nvim_create_user_command("DebugSileMath", function()
   print("In math mode:", M.math_mode())
   print("In math environment:", in_environment("math"))
   print("In SILE display math:", M.is_in_sile_display_math())
-
-  print("In text:", M.in_text())
-  print("In text environment:", in_environment("text"))
 
   -- Test pattern matching
   local test_string = "\\begin[mode=display]{math}"

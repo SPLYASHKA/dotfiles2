@@ -1,6 +1,7 @@
 return {
   {
     "L3MON4D3/LuaSnip",
+    dir = "/Users/splyashka/Kal/nvim_plugs/LuaSnip",
     enabled = true,
     -- follow latest release.
     version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
@@ -62,7 +63,7 @@ return {
       ls.config.setup({
         enable_autosnippets = true,
         update_events = 'TextChanged,TextChangedI',
-        ft_func = require("luasnip.extras.filetype_functions").from_cursor_pos,
+        ft_func = require("luasnip.extras.filetype_functions").from_pos_or_filetype,
         load_ft_func = require("luasnip.extras.filetype_functions").extend_load_ft({
           markdown = { "lua", "c" },
         }),
@@ -70,10 +71,19 @@ return {
 
       -- load snippets on lua
       require("luasnip.loaders.from_lua").load({ paths = "./snippets/lua" })
+      -- require("luasnip.loaders.from_lua").lazy_load({ paths = "./snippets/lua" })
+      -- NOTE: сейчас есть две причины не использовать lazy_load:
+      -- 1. TODO: надо тогда перенести filetype_extend в другое место из файлов со
+      -- сниппетами (они не будут выполняться при lazy_load)
+      -- 2. есть баг связаный с treesitter, если он включен для markdown, то
+      -- autosnippets перестают раскрывать автоматически, это исправляется
+      -- filtype_extend, не особо сейчас понимаю почему и как
+      -- UPD: fixed
+
       -- load snippets in snipmate format
       require("luasnip.loaders.from_snipmate").lazy_load({ paths = "./snippets/snipmate" })
       -- load snippets in vscode format
-      require("luasnip.loaders.from_vscode").lazy_load()
+      -- require("luasnip.loaders.from_vscode").lazy_load()
       require("luasnip.loaders.from_vscode").load({ paths = "./snippets/vscode" })
 
       vim.api.nvim_create_user_command("LuaSnipEdit", function()
@@ -81,14 +91,6 @@ return {
       end, {})
     end,
   },
-  -- {
-  --   "evesdropper/luasnip-latex-snippets.nvim",
-  --   enabled = false,
-  -- },
-  -- {
-  --   "iurimateus/luasnip-latex-snippets.nvim",
-  --   opts = true,
-  -- }
   {
     "benfowler/telescope-luasnip.nvim",
     dependencies = "nvim-telescope/telescope.nvim",
