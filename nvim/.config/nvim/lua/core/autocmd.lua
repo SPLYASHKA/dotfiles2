@@ -1,5 +1,15 @@
 -- [[ Basic Autocommands ]].
 -- See `:h lua-guide-autocommands`, `:h autocmd`, `:h nvim_create_autocmd()`
+local function augroup(name)
+  return vim.api.nvim_create_augroup("usr_" .. name, { clear = true })
+end
+
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "*",
+  callback = function()
+    vim.cmd("startinsert")
+  end,
+})
 
 -- Highlight when yanking (copying) text.
 -- Try it with `yap` in normal mode. See `:h vim.hl.on_yank()`
@@ -52,6 +62,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- end
 
     -- Auto-format ("lint") on save.
+    -- NOTE: в будущем возможно буду просто conform.nvim использовать
     -- Usually not needed if server supports "textDocument/willSaveWaitUntil".
     if not client:supports_method('textDocument/willSaveWaitUntil')
         and client:supports_method('textDocument/formatting') then
@@ -63,5 +74,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end,
       })
     end
+  end,
+})
+
+-- resize splits if window got resized
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+  group = augroup("resize_splits"),
+  callback = function()
+    local current_tab = vim.fn.tabpagenr()
+    vim.cmd("tabdo wincmd =")
+    vim.cmd("tabnext " .. current_tab)
   end,
 })
