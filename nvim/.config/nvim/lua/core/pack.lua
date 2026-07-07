@@ -6,3 +6,4 @@
 -- 'updatetime' and when going to insert mode
 -- vim.cmd('packadd! nohlsearch')  -- will not load, lazy.nvim disables plugin loading completely (vim.go.loadplugins = false).
 vim.cmd.packadd("nohlsearch")
+vim.cmd.packadd("nvim.undotree")
