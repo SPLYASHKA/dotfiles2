@@ -8,4 +8,5 @@ return {
   { import = "plugins.git" },
   { import = "plugins.snippets" },
   { import = "plugins.tex" },
+  { import = "plugins.cpp" },
 }
