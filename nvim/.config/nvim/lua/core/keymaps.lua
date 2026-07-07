@@ -30,6 +30,8 @@ keymap.set('n', '<leader>rn',
   { desc = "Toggle 'relativenumber'" }
 )
 
-vim.keymap.set("n", "<leader>ih", function()
+keymap.set("n", "<leader>ih", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle Inlay Hints" })
+
+keymap.set("n", "gJ", [[<cmd>s/\n\s*//g<cr>:noh<cr>]])
