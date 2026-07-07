@@ -23,14 +23,17 @@ opt.smartcase = true
 
 -- indent settings
 -- TODO: почитать про indent еще раз
-opt.shiftwidth=2
-opt.tabstop=4
-opt.softtabstop=4
-opt.expandtab=true
-opt.smartindent=true
+opt.shiftwidth = 2
+opt.tabstop = 4
+opt.softtabstop = 4
+opt.expandtab = true
+opt.smartindent = true
+
+-- tresitter-based indentation
+vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
 opt.list = true
-opt.listchars = { tab = "»·", trail = "•"}
+opt.listchars = { tab = "»·", trail = "•" }
 -- opt.listchars:append { space = "·" }
 -- opt.listchars:append { eol = "\\u21b5" }
 
@@ -47,8 +50,8 @@ opt.wildmenu = true
 opt.wildmode = "list:longest"
 -- There are certain files that we would never want to edit with Vim.
 -- Wildmenu will ignore files with these extensions.
-opt.wildignore = {"*.docx","*.jpg","*.png","*.gif","*.pdf","*.pyc","*.exe","*.flv","*.img","*.xlsx"}
-opt.wildignore:append  { "**/bin/**,**/build/**" }
+opt.wildignore = { "*.docx", "*.jpg", "*.png", "*.gif", "*.pdf", "*.pyc", "*.exe", "*.flv", "*.img", "*.xlsx" }
+opt.wildignore:append { "**/bin/**,**/build/**" }
 
 -- Folding
 opt.foldlevelstart = 99
@@ -58,7 +61,7 @@ wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 opt.foldtext = "MyFoldText()"
 -- vim.o.foldtext = ""
-vim.opt.fillchars:append({fold = " "})
+vim.opt.fillchars:append({ fold = " " })
 
 vim.cmd([[
 function! MyFoldText()
