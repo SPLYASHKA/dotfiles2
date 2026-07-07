@@ -1,4 +1,3 @@
-
 ---@brief
 ---
 --- https://clangd.llvm.org/installation.html
@@ -67,6 +66,7 @@ return {
   cmd = {
     "clangd",
     "--header-insertion=never",
+    -- NOTE: maybe "--header-insertion=iwyu",
   },
   on_attach = function(client, bufnr)
     vim.api.nvim_buf_create_user_command(bufnr, 'LspClangdSwitchSourceHeader', function()
@@ -80,7 +80,7 @@ return {
     local opts = { buffer = bufnr, silent = true }
     opts.desc = "Switch between source/header"
     vim.keymap.set("n", "gs", function()
-      switch_source_header(bufnr,client)
+      switch_source_header(bufnr, client)
     end, opts)
   end,
 }

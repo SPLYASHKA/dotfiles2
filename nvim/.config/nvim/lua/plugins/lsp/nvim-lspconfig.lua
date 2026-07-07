@@ -16,8 +16,14 @@ return {
       "marksman",
       "asm_lsp",
       "copilot",
-      "pyright",
       "texlab",
+      "ts_ls",
+      "denols",
+      "dartls",
+      "gopls",
+      "docker_language_server",
+      "ty",
+      "ruff",
     }
     vim.lsp.enable(lsp_enabled)
   end,
