@@ -9,4 +9,6 @@ require("core.ui2")
 
 require("core.lazy")
 
+require("core.colorscheme")
+
 require("core.pack")
