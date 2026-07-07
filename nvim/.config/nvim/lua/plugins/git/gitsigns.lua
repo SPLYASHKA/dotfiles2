@@ -28,11 +28,23 @@ end
 return {
   'lewis6991/gitsigns.nvim',
   lazy = false,
-  keys = {
-    {
-      '<leader>gd',
-      diff_with_commit,
-      desc = 'Git diff with commit...'
-    }
-  },
+  opts = {
+    on_attach = function(bufnr)
+      vim.keymap.set('n', '<leader>gd', diff_with_commit, { buf = bufnr, desc = "Git diff with commit..." })
+      -- hunk actions
+      vim.keymap.set('n', '<leader>hs', require("gitsigns").stage_hunk,
+        { buf = bufnr, desc = "Stage/unstage hunk under cursor" })
+      vim.keymap.set('n', '<leader>hr', require("gitsigns").reset_hunk, { buf = bufnr, desc = "Reset hunk under cursor" })
+      vim.keymap.set('n', '<leader>hp', require("gitsigns").preview_hunk,
+        { buf = bufnr, desc = "Preview hunk under cursor" })
+      vim.keymap.set('n', ']h', function() require("gitsigns").nav_hunk("next", {}, {}) end,
+        { buf = bufnr, desc = "Jump to next hunk" })
+      vim.keymap.set('n', '[h', function() require("gitsigns").nav_hunk("prev", {}, {}) end,
+        { buf = bufnr, desc = "Jump to prev hunk" })
+      vim.keymap.set('n', ']H', function() require("gitsigns").nav_hunk("last", {}, {}) end,
+        { buf = bufnr, desc = "Jump to last hunk" })
+      vim.keymap.set('n', '[H', function() require("gitsigns").nav_hunk("first", {}, {}) end,
+        { buf = bufnr, desc = "Jump to first hunk" })
+    end,
+  }
 }
