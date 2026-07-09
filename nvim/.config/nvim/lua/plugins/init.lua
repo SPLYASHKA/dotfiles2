@@ -15,4 +15,5 @@ return {
   { import = "plugins.cpp" },
   { import = "plugins.math" },
   { import = "plugins.tables" },
+  { import = "plugins.fun" },
 }
