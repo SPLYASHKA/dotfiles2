@@ -1,12 +1,13 @@
 local M = {}
 
-function M.get()
+function M.get(dir)
+  dir = dir or 1
   local ls = require("luasnip")
-  if not ls.jumpable(1) then
+  if not ls.jumpable(dir) then
     return nil
   end
 
-  local dest = ls.jump_destination(1)
+  local dest = ls.jump_destination(dir)
   if not dest then
     return nil
   end

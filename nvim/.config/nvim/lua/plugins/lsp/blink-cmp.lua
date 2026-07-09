@@ -32,9 +32,13 @@ return {
     keymap = {
       preset = 'default',
       ["<Tab>"] = {
-        require("plugins._config.tab_router").handle,
-
+        function() return require("plugins._config.tab_router").handle(1) end,
         "snippet_forward",
+        "fallback",
+      },
+      ["<S-Tab>"] = {
+        function() return require("plugins._config.tab_router").handle(-1) end,
+        "snippet_backward",
         "fallback",
       }
     },

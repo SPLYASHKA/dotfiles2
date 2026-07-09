@@ -15,43 +15,34 @@ local function before(a, b)
   return a.col < b.col
 end
 
--- NOTE: была идея использовать ближайший прыжок из всех провайдеров,
--- может быть потом буду использовать, но сейчас достаточно использовать
--- стратегию: neotab -> luasnip, при этом (|xxxx) neotab игнорирует
--- UPD: все же оставлю свое, чтобы можно было еще и tabout.nvim использовать
--- хотя прекрасно можно было бы нижний вариант брать
--- NOTE: вообще надо бы еще разобраться с <S-Tab>, но щас супер в падлу
-function M.handle()
+function M.handle(dir)
   local tabout = _tabout
   if vim.list_contains(neotab_filetypes, vim.bo.filetype)
       or not vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] then
     tabout = neotab
   end
 
-  local tabout_pos = tabout.get()
-  local luasnip_pos = luasnip.get()
+  local tabout_pos = tabout.get(dir)
+  local luasnip_pos = luasnip.get(dir)
 
   if not tabout_pos then
     return false
   end
 
   if not luasnip_pos then
-    tabout.jump()
+    tabout.jump(dir)
     return true
   end
 
-  if before(tabout_pos, luasnip_pos) then
-    tabout.jump()
+  if dir == -1 and before(luasnip_pos, tabout_pos) then
+    tabout.jump(-1)
+    return true
+  elseif dir == 1 and before(tabout_pos, luasnip_pos) then
+    tabout.jump(1)
     return true
   end
 
   return false
 end
-
--- Здесь буквально эта стратегия используется
--- function M.handle()
---   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Plug>(neotab-out-luasnip)", true, false, true), "m", true)
---   return true
--- end
 
 return M
