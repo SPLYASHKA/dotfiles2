@@ -41,6 +41,8 @@ return {
           local ls = require("luasnip")
           if ls.choice_active() then
             ls.change_choice(1)
+          else
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-H>", true, false, true), "n", false)
           end
         end,
         mode = { "i", "s" },
@@ -67,6 +69,7 @@ return {
         load_ft_func = require("luasnip.extras.filetype_functions").extend_load_ft({
           markdown = { "lua", "c" },
         }),
+        loaders_store_source = true,
       })
 
       -- load snippets on lua
@@ -75,10 +78,6 @@ return {
       -- NOTE: сейчас есть две причины не использовать lazy_load:
       -- 1. TODO: надо тогда перенести filetype_extend в другое место из файлов со
       -- сниппетами (они не будут выполняться при lazy_load)
-      -- 2. есть баг связаный с treesitter, если он включен для markdown, то
-      -- autosnippets перестают раскрывать автоматически, это исправляется
-      -- filtype_extend, не особо сейчас понимаю почему и как
-      -- UPD: fixed
 
       -- load snippets in snipmate format
       require("luasnip.loaders.from_snipmate").lazy_load({ paths = "./snippets/snipmate" })
@@ -89,18 +88,16 @@ return {
       vim.api.nvim_create_user_command("LuaSnipEdit", function()
         require("luasnip.loaders").edit_snippet_files()
       end, {})
+
+      vim.api.nvim_create_user_command("LuaSnipJumpToActiveSnippet", function()
+        require("luasnip.extras.snip_location").jump_to_active_snippet()
+      end, {})
     end,
   },
   {
-    "benfowler/telescope-luasnip.nvim",
-    dependencies = "nvim-telescope/telescope.nvim",
-    config = function()
-      require('telescope').load_extension('luasnip')
-    end
-  },
-  {
     "chrisgrieser/nvim-scissors",
-    dependencies = "nvim-telescope/telescope.nvim", -- if using telescope
+    enabled = true,
+    -- dependencies = "nvim-telescope/telescope.nvim", -- if using telescope
     opts = {
       snippetDir = vim.fn.stdpath("config") .. "/snippets/vscode/",
     }
