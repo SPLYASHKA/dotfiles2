@@ -11,5 +11,6 @@ return {
   { import = "plugins.typst" },
   { import = "plugins.plugins_dev" },
   { import = "plugins.image" },
+  { import = "plugins.quarto" },
   { import = "plugins.cpp" },
 }
