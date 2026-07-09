@@ -1,7 +1,7 @@
 local lt = require("luatemplate")
 
 return function(ctx)
-  local child = lt.load_template("_child.lua")
+  local child = lt.load_template("test/_child.lua")
 
   local lines = {
     "Parent line 1",

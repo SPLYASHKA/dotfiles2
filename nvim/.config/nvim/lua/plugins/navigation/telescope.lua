@@ -1,5 +1,4 @@
 -- TODO: добить найстроку telescope
--- TODO: мб скачать телескоп ui
 local function find_nvim_files()
   require('telescope.builtin').find_files({
     prompt_title = "Nvim config fles",
@@ -47,9 +46,8 @@ return {
     {
       enabled = true,
       "nvim-telescope/telescope-ui-select.nvim",
-      init = function()
-        -- require("telescope").load_extension("ui-select")
-        load_extension_after_telescope_is_loaded("ui-select")
+      config = function()
+        require("telescope").load_extension("ui-select")
       end,
     },
     {
@@ -58,6 +56,7 @@ return {
       enabled = true,
       dir = "/Users/splyashka/Kal/nvim_plugs/sandbox/telescope-luasnip.nvim/",
       dependencies = "nvim-telescope/telescope.nvim",
+      -- NOTE: тут вроде можно просто config вместо init lazy_load использовать
       init = function()
         load_extension_after_telescope_is_loaded("luasnip")
       end
