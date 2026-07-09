@@ -14,4 +14,5 @@ return {
   { import = "plugins.quarto" },
   { import = "plugins.cpp" },
   { import = "plugins.math" },
+  { import = "plugins.tables" },
 }
