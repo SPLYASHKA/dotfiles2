@@ -16,28 +16,6 @@ local COMMENT = {
   ['comment_environment'] = true,
 }
 
--- NOTE: maybe remove
-local function get_node_at_cursor()
-  local buf = vim.api.nvim_get_current_buf()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  row = row - 1
-  col = col - 1
-
-  -- BUG: this line blowup treesitter and luasnip ft_func
-  -- local ok, parser = pcall(ts.get_parser, buf, 'latex')
-  local ok, parser = pcall(ts.get_parser, buf)
-  if not ok or not parser then return end
-
-  local root_tree = parser:parse()[1]
-  local root = root_tree and root_tree:root()
-
-  if not root then
-    return
-  end
-
-  return root:named_descendant_for_range(row, col, row, col)
-end
-
 function M.in_comment()
   if has_treesitter then
     local node = get_node_at_cursor()
@@ -53,9 +31,9 @@ end
 
 function M.in_mathzone()
   if has_treesitter then
-    -- local node = get_node_at_cursor()
-    local ts_utils = require("nvim-treesitter.ts_utils")
-    local node = ts_utils.get_node_at_cursor()
+    -- local ts_utils = require("nvim-treesitter.ts_utils")
+    -- local node = ts_utils.get_node_at_cursor()
+    local node = vim.treesitter.get_node({ ignore_injections = false })
     while node do
       if node:type() == 'text_mode' then
         return false

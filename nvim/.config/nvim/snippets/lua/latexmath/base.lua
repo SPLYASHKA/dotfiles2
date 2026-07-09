@@ -19,9 +19,6 @@ local text_auto = {
 }
 
 local s_mathonly = ls.extend_decorator.apply(s, {}, { condition = tex.math_mode, show_condition = tex.math_mode })
--- NOTE: luasnip currently have a bug with parse extend,
--- check this PL: https://github.com/L3MON4D3/LuaSnip/pull/1403
--- this snippets doesnt work with luasnip yet (I use my fork)
 local parse_mathonly = ls.extend_decorator.apply(parse, { condition = tex.math_mode, show_condition = tex.math_mode })
 local math_auto = {
 }
@@ -90,9 +87,11 @@ local fractions = {
       }
     )
   ),
+  -- TODO: сейчас работает только для не вложенных скобок, добавить пару уровней
+  -- вложенности (бесконечность не получится, не регулярный язык)
   s_mathonly(
     {
-      trig = [[(\(.\+\))/]],
+      trig = [[(\([^()]\+\))/]],
       wordTrig = false,
       regTrig = true,
       trigEngine = "vim",
@@ -150,6 +149,10 @@ local cmds = {
   "ln",
   "det",
   "quad",
+  "cos",
+  "sin",
+  "geq",
+  "leq",
 }
 for _, cmd in pairs(cmds) do
   local snips = {
@@ -200,5 +203,12 @@ local symbol_accent = {
   parse_mathonly("vec", "\\vec{$1}"),
 }
 vim.list_extend(math_auto, symbol_accent)
+
+local derivatives = {
+  parse_mathonly("par ", "\\frac{ \\partial ${1:y} }{ \\partial ${2:x} }"),
+  parse_mathonly("ddt", "\\frac{\\mathrm{d}}{\\mathrm{d}t}"),
+  parse_mathonly("dd ", "\\frac{ \\mathrm{d} ${1:y} }{ \\mathrm{d} ${2:x} }"),
+}
+vim.list_extend(math_auto, derivatives)
 
 return snippets, vim.list_extend(text_auto, math_auto)

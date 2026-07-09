@@ -40,6 +40,7 @@ local envs = {
   align = "aligned",
   split = "split",
   array = "array",
+  cases = "cases",
 }
 for trigger, env in pairs(envs) do
   -- local snip = parse_mathonly(trigger, string.format("\\begin{%s}\n$1\n\\end{%s}\n$0", env, env))
@@ -49,9 +50,14 @@ end
 
 -- NOTE: мб разделить tex.in_matrix и tex.in_multiline на два разных сниппета,
 -- но вроде норм
+-- local s_helper = ls.extend_decorator.apply(s, { wordTrig = false, hidden = true },
+--   {
+--     condition = (tex.in_matrix + tex.in_multiline) * conds.line_end * conds.trigger_not_preceded_by(" ") -
+--         conds.line_begin
+--   })
 local s_helper = ls.extend_decorator.apply(s, { wordTrig = false, hidden = true },
   {
-    condition = (tex.in_matrix + tex.in_multiline) * conds.line_end * conds.trigger_not_preceded_by(" ") -
+    condition = (tex.in_matrix) * conds.line_end * conds.trigger_not_preceded_by(" ") -
         conds.line_begin
   })
 local matrix = {
