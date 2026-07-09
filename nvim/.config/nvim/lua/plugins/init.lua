@@ -13,4 +13,5 @@ return {
   { import = "plugins.image" },
   { import = "plugins.quarto" },
   { import = "plugins.cpp" },
+  { import = "plugins.math" },
 }
