@@ -29,7 +29,15 @@ return {
     --
     -- See :h blink-cmp-config-keymap for defining your own keymap
     -- keymap = { preset = 'super-tab' },
-    keymap = { preset = 'default' },
+    keymap = {
+      preset = 'default',
+      ["<Tab>"] = {
+        require("plugins._config.tab_router").handle,
+
+        "snippet_forward",
+        "fallback",
+      }
+    },
 
     appearance = {
       -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
