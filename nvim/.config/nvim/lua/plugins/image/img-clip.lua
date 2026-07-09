@@ -4,6 +4,7 @@
 return {
   -- "HakonHarnes/img-clip.nvim",
   "SPLYASHKA/img-clip.nvim",
+  dev = false,
   event = "VeryLazy",
   opts = {
     -- add options here

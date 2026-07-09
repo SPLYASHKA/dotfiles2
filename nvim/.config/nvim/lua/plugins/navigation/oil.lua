@@ -5,6 +5,7 @@ return {
   ---@type oil.SetupOpts
   opts = {
     skip_confirm_for_simple_edits = true,
+    prompt_save_on_select_new_entry = false,
     keymaps = {
       ["<Esc>"] = { "actions.close", mode = "n" },
     },
