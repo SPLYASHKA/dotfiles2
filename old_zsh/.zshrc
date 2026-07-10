@@ -20,10 +20,12 @@ source ${(M)config_files:#*/oh-my-zsh.zsh}
 
 # load everything but oh-my-zsh.zsh
 
-#for file in $config_files
+# for file in $config_files
 for file in ${config_files:#*/oh-my-zsh.zsh}
 do
   source $file
 done
 
 unset config_files
+
+fortune | cowsay -f tux

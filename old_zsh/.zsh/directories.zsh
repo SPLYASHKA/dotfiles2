@@ -3,6 +3,7 @@ setopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushdminus
+setopt extendedglob
 
 setopt globdots
 
@@ -37,6 +38,12 @@ mdcd ()
     mkdir -p -- "$1" &&
        cd -P -- "$1"
 }
+
+cdf() {
+    cd "$(dirname "$1")" || return
+}
+
+alias cdg='cdf "$(livegrep)"'
 
 # List directory contents
 alias ls='ls -G'

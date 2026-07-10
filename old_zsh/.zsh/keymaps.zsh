@@ -1,6 +1,3 @@
-bindkey -v
-bindkey -M viins 'jj' vi-cmd-mode
-
 my_nvim_func() {
     BUFFER="nvim"
     zle accept-line
