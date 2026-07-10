@@ -6,7 +6,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
       { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
+      { out,                            "WarningMsg" },
       { "\nPress any key to exit..." },
     }, true, {})
     vim.fn.getchar()
@@ -31,5 +31,14 @@ require("lazy").setup({
     loader = false,
     -- Track each new require in the Lazy profiling tab
     require = false,
+  },
+  dev = {
+    -- Directory where you store your local plugin projects. If a function is used,
+    -- the plugin directory (e.g. `~/projects/plugin-name`) must be returned.
+    ---@type string | fun(plugin: LazyPlugin): string
+    path = os.getenv("NVIM_PLUGINS_DIR"),
+    ---@type string[] plugins that match these patterns will use your local versions instead of being fetched from GitHub
+    patterns = { "splyashka", "SPLYASHKA" }, -- For example {"folke"}
+    fallback = false,                        -- Fallback to git when local plugin doesn't exist
   },
 })
