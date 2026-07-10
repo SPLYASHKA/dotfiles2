@@ -91,18 +91,15 @@ return function(ctx)
   }
 
   -- Устанавливаем курсор на первую пустую строку после # Мысли
-  vim.schedule(function()
-    local bufnr = ctx.bufnr
-    if bufnr then
-      for i, line in ipairs(lines) do
-        if line == "" and lines[i - 1] == "# Мысли" then
-          vim.api.nvim_win_set_cursor(0, { i, 0 })
-          break
-        end
+  local bufnr = ctx.bufnr
+  if bufnr then
+    for i, line in ipairs(lines) do
+      if line == "" and lines[i - 1] == "# Мысли" then
+        ctx.cursor = { i, 0 }
+        break
       end
     end
-  end)
+  end
 
   return lines
 end
-

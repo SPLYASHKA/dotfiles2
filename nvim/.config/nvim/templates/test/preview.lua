@@ -20,9 +20,7 @@ return function(ctx)
     "eof",
   })
 
-  vim.schedule(function()
-    vim.api.nvim_win_set_cursor(0, { #lines - 1, 0 }) -- строка 5, колонка 0
-  end)
+  ctx.cursor = { #lines - 1, 0 }
 
   return lines
 end

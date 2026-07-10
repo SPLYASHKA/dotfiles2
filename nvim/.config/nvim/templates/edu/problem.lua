@@ -18,9 +18,7 @@ return function(ctx)
   ctx.filename = "note_" .. ctx.frontmatter["Discipline"]
 
 
-  vim.schedule(function()
-    vim.api.nvim_win_set_cursor(0, { #lines, 0 }) -- строка 5, колонка 0
-  end)
+  ctx.cursor = { #lines, 0 }
 
   return lines
 end
