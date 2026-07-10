@@ -16,4 +16,5 @@ return {
   { import = "plugins.math" },
   { import = "plugins.tables" },
   { import = "plugins.fun" },
+  { import = "plugins.editor" },
 }
