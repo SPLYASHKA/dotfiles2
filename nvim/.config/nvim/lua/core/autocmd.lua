@@ -86,3 +86,14 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
     vim.cmd("tabnext " .. current_tab)
   end,
 })
+
+-- https://github.com/nvim-treesitter/nvim-treesitter/discussions/8546
+-- vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()]
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function(args)
+    local lang = vim.treesitter.language.get_lang(args.match)
+    if vim.treesitter.language.add(lang or args.match) then
+      vim.treesitter.start(args.buf)
+    end
+  end,
+})
