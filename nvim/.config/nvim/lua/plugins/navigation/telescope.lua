@@ -104,5 +104,6 @@ return {
     { '<leader>ft', function() require('telescope.builtin').builtin() end,                      desc = 'Telescope builtins' },
     { '<leader>fp', function() require('plugins._config.telescope-config').project_files() end, desc = 'Telescope find project files' },
     { '<leader>fn', find_nvim_files,                                                            desc = 'Telescope nvim config files' },
+    { '<leader>gs', function() require('telescope.builtin').git_status() end,                   desc = 'Telescope git status' },
   },
 }
