@@ -10,6 +10,7 @@ return {
   { import = "plugins.tex" },
   { import = "plugins.typst" },
   { import = "plugins.plugins_dev" },
+  { import = "plugins.ai" },
   { import = "plugins.image" },
   { import = "plugins.quarto" },
   { import = "plugins.unity" },
