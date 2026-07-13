@@ -32,6 +32,14 @@ return {
     keymap = {
       preset = 'default',
       ["<Tab>"] = {
+        function()
+          local keys = vim.fn["copilot#Accept"]("")
+          if keys ~= "" then
+            vim.api.nvim_feedkeys(keys, "i", true)
+            return true
+          end
+          return false
+        end,
         function() return require("plugins._config.tab_router").handle(1) end,
         "snippet_forward",
         "fallback",
