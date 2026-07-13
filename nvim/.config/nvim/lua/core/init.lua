@@ -6,6 +6,7 @@ require("core.commands")
 require("core.autocmd")
 require("core.spellcheck")
 require("core.ui2")
+require("core.fold")
 
 require("core.lazy")
 

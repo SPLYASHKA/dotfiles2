@@ -16,6 +16,7 @@ return {
         return {
           CursorLine = { underline = true },
           CursorLineNr = { underline = true },
+          FoldCurrentLine = { fg = colors.lavender },
         }
       end
     })
