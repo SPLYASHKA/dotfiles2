@@ -34,4 +34,22 @@ keymap.set("n", "<leader>ih", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle Inlay Hints" })
 
-keymap.set("n", "gJ", [[<cmd>s/\n\s*//g<cr>:noh<cr>]])
+keymap.set("n", "gJ", function()
+  local count = vim.v.count
+  if count == 0 then count = 2 end
+  for _ = 1, count - 1 do
+    vim.cmd("s/\\n\\s*//")
+  end
+  vim.cmd("noh")
+end, { desc = "Join lines without indent" })
+
+-- make source % keymap
+keymap.set("n", "<leader>rr", function()
+  local filetype = vim.bo.filetype
+  if filetype == "lua" then
+    vim.cmd("source %")
+    print("Sourced " .. vim.fn.expand("%"))
+  else
+    print("Not a Lua file")
+  end
+end, { desc = "Source current Lua file" })
