@@ -45,6 +45,7 @@ return {
         { buf = bufnr, desc = "Jump to last hunk" })
       vim.keymap.set('n', '[H', function() require("gitsigns").nav_hunk("first", {}, {}) end,
         { buf = bufnr, desc = "Jump to first hunk" })
+      vim.keymap.set('n', '<leader>gb', require("gitsigns").blame_line, { buf = bufnr, desc = "Git blame current line" })
     end,
   }
 }
