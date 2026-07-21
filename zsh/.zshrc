@@ -11,21 +11,18 @@
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
 
+eval "$(zoxide init zsh)"
 # all of our zsh files
 typeset -U config_files
 config_files=(~/.zsh/***/*.zsh) # *** for symlinks
 
-# TODO get out of omz
-source ${(M)config_files:#*/oh-my-zsh.zsh}
-
-# load everything but oh-my-zsh.zsh
-
-# for file in $config_files
-for file in ${config_files:#*/oh-my-zsh.zsh}
+for file in $config_files
 do
   source $file
 done
 
 unset config_files
+
+eval "$(sheldon source)"
 
 fortune | cowsay -f tux
