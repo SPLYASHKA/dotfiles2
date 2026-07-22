@@ -1,0 +1,32 @@
+# `sheldon` configuration file
+# ----------------------------
+#
+# You can modify this file directly or you can use one of the following
+# `sheldon` commands which are provided to assist in editing the config file:
+#
+# - `sheldon add` to add a new plugin to the config file
+# - `sheldon edit` to open up the config file in the default editor
+# - `sheldon remove` to remove a plugin from the config file
+#
+# See the documentation for more https://github.com/rossmacarthur/sheldon#readme
+
+shell = "zsh"
+
+[plugins]
+
+[plugins.omz-git-and-alias-finder]
+github = "ohmyzsh/ohmyzsh"
+use = ["plugins/git/git.plugin.zsh", "plugins/alias-finder/alias-finder.plugin.zsh", "plugins/aliases/aliases.plugin.zsh"]
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+
+[plugins.you-should-use]
+github = "MichaelAquilina/zsh-you-should-use"
+
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+
+[plugins."catppuccin/zsh-syntax-highlighting"]
+github = "catppuccin/zsh-syntax-highlighting"
+use = ["themes/catppuccin_mocha-zsh-syntax-highlighting.zsh"]
