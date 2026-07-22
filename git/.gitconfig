@@ -11,5 +11,9 @@
 [alias]
 	llog = log --all --graph --stat
 [core]
-  editor = vim
+  editor = nvim
 	excludesfile = ~/.gitignore
+[diff]
+	tool = nvimdiff
+[difftool "nvimdiff"]
+	cmd = nvim -d $LOCAL $REMOTE
