@@ -1,3 +1,4 @@
+# zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -26,3 +27,4 @@ unset config_files
 eval "$(sheldon source)"
 
 fortune | cowsay -f tux
+# zprof

@@ -7,6 +7,7 @@ setopt extendedglob
 
 setopt globdots
 
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
 alias -g ...='../..'
 alias -g ....='../../..'
